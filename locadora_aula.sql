@@ -1,5 +1,5 @@
-create database aula2;
-use aula2;
+create database locadora_aula;
+use locadora_aula;
 
 create table ator(
 	ator_id int not null auto_increment,
@@ -8,8 +8,6 @@ create table ator(
 	primary key (ator_id)
 );
 
-select * from ator;
-
 insert into ator values ('0', 'Brad', 'Pitt');
 insert into ator values ('0', 'Julia', 'Roberts');
 insert into ator values ('0', 'George', 'Clooney');
@@ -17,15 +15,13 @@ insert into ator values ('0', 'Juliana', 'Paes');
 insert into ator values ('0', 'Jack', 'Sparrow');
 insert into ator values ('0', 'Cris', 'Evans');
 insert into ator values ('0', 'Robert', 'Downey Jr');
-insert into ator values ('3', 'Cris', 'Pratt');
+insert into ator values ('0', 'Cris', 'Pratt');
 
 create table categoria(
 	categoria_id int not null auto_increment,
     nome varchar(25) not null,
 	primary key (categoria_id)
 );
-
-select * from categoria;
 
 insert into categoria value ('0', 'Terror');
 insert into categoria value ('0', 'Ação');
@@ -41,8 +37,6 @@ create table filme_texto(
 	primary key (filme_id)
 );
 
-select * from filme_texto;
-
 insert into filme_texto value ('0', 'O auto da compadecida');
 insert into filme_texto value ('0', 'Os Vingadores');
 insert into filme_texto value ('0', 'Doutor Estranho');
@@ -56,8 +50,6 @@ create table pais(
     pais varchar(50) not null,
 	primary key (pais_id)
 );
-
-select * from pais;
 
 insert into pais value ('0', 'Brasil');
 insert into pais value ('0', 'Estados Unidos');
@@ -73,12 +65,41 @@ create table idioma(
 	primary key (idioma_id)
 );
 
-select * from idioma;
-
 insert into idioma value ('0', 'Português-BR');
 insert into idioma value ('0', 'Inglês');
 insert into idioma value ('0', 'Alemão');
 insert into idioma value ('0', 'Francês');
 insert into idioma value ('0', 'Japonês');
 insert into idioma value ('0', 'Norueguês');
+
+create table filme(
+	filme_id int not null auto_increment,
+    titulo varchar(255) not null,
+    descricao text,
+    ano_de_lancamento year(4) default null,
+    idioma_id int not null,
+    idioma_original_id int default null,
+    duracao_da_locacao int not null default '3',
+    preco_da_locacao decimal(4,2) not null default '4.99',
+    duracao_do_filme int default null,
+    custo_de_substituicao decimal(5,2) not null default '19.99',
+    classificacao enum('L', '10', '14', '16') default 'L',
+    recursos_especiais set('Trailers', 'Comentarios', 'Cenas Deletadas') default null,
+    
+    primary key (filme_id),
+    key fk_idioma_id (idioma_id),
+    key fk_idioma_original_id (idioma_original_id)
+);
+
+insert into filme values ('0', 'O Grito', 'Assustador', 2000, 1, 2, 3, 5.99, 120, 10.00, '16', 'Trailers');
+insert into filme values ('0', 'O Pastor', 'Gospel', 2020, 1, 2, 3, 5.99, 120, 10.00, '10', 'Comentarios');
+
+select * from filme;
+
+select * from filme, idioma where filme.idioma_id = idioma.idioma_id;
+
+select titulo, nome from filme, idioma where filme.idioma_id = idioma.idioma_id;
+
+select titulo, nome from filme, idioma;
+
 
