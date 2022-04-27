@@ -85,7 +85,6 @@ create table filme(
     custo_de_substituicao decimal(5,2) not null default '19.99',
     classificacao enum('L', '10', '14', '16') default 'L',
     recursos_especiais set('Trailers', 'Comentarios', 'Cenas Deletadas') default null,
-    
     primary key (filme_id),
     key fk_idioma_id (idioma_id),
     key fk_idioma_original_id (idioma_original_id)
@@ -101,5 +100,13 @@ select * from filme, idioma where filme.idioma_id = idioma.idioma_id;
 select titulo, nome from filme, idioma where filme.idioma_id = idioma.idioma_id;
 
 select titulo, nome from filme, idioma;
+
+create table filme_ator(
+	ator_id int not null,
+    filme_id int not null,
+    primary key (ator_id, filme_id),
+    key fk_filme_id (filme_id),
+    key fk_ator_id (ator_id)
+);
 
 
