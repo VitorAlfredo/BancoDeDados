@@ -45,4 +45,6 @@ insert into pessoa value ('0', '3', 'Karine', 'Silva', '96314725836', 'Feminino'
 insert into pessoa value ('0', '3', 'Larissa', 'Silva', '84563215964', 'Feminino', 'larissa.silva@gmail.com', '7456289');
 insert into pessoa value ('0', '3', 'Jacilene', 'Silva', '85694236710', 'Feminino', 'jacilene.silva@gmail.com', '5469327');
 
-select  from;
+select * from pessoa, endereco where pessoa.endereco_id = endereco.endereco_id;
+
+hially.vaguetti@p.ucb.br
