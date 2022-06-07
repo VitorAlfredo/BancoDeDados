@@ -109,4 +109,94 @@ create table filme_ator(
     key fk_ator_id (ator_id)
 );
 
+create table cidade(
+	cidade_id int not null auto_increment,
+    cidade varchar(50) not null,
+    pais_id int not null,
+    primary key (cidade_id),
+    key fk_pais_id (pais_id)
+);
 
+create table endereco(
+	endereco_id int not null auto_increment,
+    endereco varchar(50) not null,
+    endereco2 varchar(50) not null,
+    bairro varchar(20) not null,
+    cidade_id int not null,
+    cep varchar(10) not null,
+    telefone varchar(20) not null, 
+    primary key (endereco_id),
+    key fk_cidade_id (cidade_id)
+);
+
+create table loja(
+	loja_id int not null auto_increment,
+    gerente_id int not null,
+    endereco_id int not null,
+    primary key (loja_id),
+	key fk_endereco_id (endereco_id)
+);
+
+create table inventario(
+	inventario_id int not null auto_increment,
+    filme_id int not null,
+    loja_id int not null,
+    primary key (inventario_id),
+    key fk_filme_id (filme_id),
+    key fk_loja_id (loja_id)
+);
+
+create table funcionario(
+	funcionario_id int not null auto_increment,
+    primeiro_nome varchar(45) not null,
+    ultimo_nome varchar(45) not null,
+    endereco_id int not null,
+    email varchar(50) not null,
+    loja_id int not null,
+    ativo int not null,
+    usuario varchar(16) not null,
+    senhar varchar(40) not null,
+    primary key (funcionario_id),
+    key fk_endereco_id (endereco_id),
+    key fk_loja_id (loja_id)
+);
+
+create table cliente(
+	cliente_id int not null auto_increment,
+    loja_id int not null,
+    primeiro_nome varchar(45) not null,
+    ultimo_nome varchar(45) not null,
+    email varchar(50) not null,
+    endereco_id int not null,
+    ativo int not null,
+    data_criacao datetime not null,
+    primary key (cliente_id),
+	key fk_loja_id (loja_id),
+	key fk_endereco_id (endereco_id)
+);
+
+create table aluguel(
+	aluguel_id int not null auto_increment,
+    data_de_aluguel datetime not null,
+    inventario_id int not null,
+    cliente_id int not null,
+    data_de_devolucao datetime not null,
+    funcionario_id int not null,
+    primary key (aluguel_id),
+    key fk_inventario_id (inventario_id),
+	key fk_cliente_id (cliente_id),
+	key fk_funcionario_id (funcionario_id)
+);
+
+create table pagamento(
+	pagamento_id int not null auto_increment,
+    cliente_id int not null,
+    funcionario_id int not null,
+    aluguel_id int not null,
+    valor decimal(5,2) not null default '4.99',
+    data_de_pagamento datetime not null,
+    primary key (pagamento_id),
+    key fk_cliente_id (cliente_id),
+	key fk_funcionario_id (funcionario_id),
+    key fk_aluguel_id (aluguel_id)
+);
