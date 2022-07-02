@@ -74,4 +74,3 @@ select * from pessoa, endereco, telefone where pessoa.id_endereco = endereco.id_
 drop table endereco;
 
 drop database clientes;
-
